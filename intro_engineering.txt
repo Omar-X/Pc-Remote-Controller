@@ -1,0 +1,45 @@
+>> ways to take in order to success in life 
+	1/ relationship with allah
+	2/ the motivation
+	3/ the surrounding (place and friendship)
+	4/ learning new things like programming language
+	5/ depression
+	6/ try to participate in new activities
+	7/ searching skills
+	
+>> my story here in turkey
+	1/ yos/ sat and turkish
+
+>> how to choose your specialty
+	1/ what to look for
+	2/ new fields lead to new opportunity
+	
+
+>> fields in engineering 
+	over 40 different types of engineering degrees and careers
+	1/ Solar/ wind energy engineering: (alternatives in power engineering)
+		Governments across the world are under pressure to reduce their carbon emissions 			drastically over the next few years, so it’s important that they invest in 			renewable energy sectors. As they invest in solar energy.
+	2/ security and IT 
+	3/ aerospace engineering
+		F-22 fighter aircraft (radio can't detect)
+	4/ Amazon recently announced its plans to launch a mega constellation of 3,000+ satellites 			to provide Internet connection to under-connected parts of the world
+	we are a way behind on these fields !!!
+
+>> dedicate my knowladge and experience for the sake of islam
+	helping hamas	
+	lack of islamic websites
+ 	
+
+
+>> 
+===================================================================================
+
+badusb attack 
+1/ the program to run 
+2/ autorun script like 
+	[autorun]
+	 ;Open=YOURAPP.exe
+	 ShellExecute=YOURAPP.exe
+	 UseAutoPlay=1
+make sure that the name of the file is “autorun.inf” and make sure that you select “All Files (*.*)” in the “Save as type” field.
+
