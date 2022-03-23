@@ -1,0 +1,589 @@
+
+#: import slide kivy.uix.screenmanager.SlideTransition
+#: import C kivy.properties.get_color_from_hex
+
+
+<Control_Button@Button>:
+    background_color: 0,0,0,0
+    markup: True
+    text: ""
+    order: ""
+    color: (0,0,0,1)
+    font_size: "60sp"
+    font_name: "shapes"
+    canvas.before:
+        Color:
+            rgba: C("#18376533") if self.state == "normal" else  C("#183765FF")
+        Rectangle:
+            source: "Images/v_background.png"
+            pos:self.pos
+            size: self.size
+<Label>:
+    color: C("#CDCED0FF")
+
+<Button>:
+    color: C("#CDCED0FF")
+
+<MY_TextInput@TextInput>:
+    foreground_color: (0.75, 0.75, 0.75, 1.0)
+    text_size: [None,None]
+    keyboard_suggestions: True
+    valign: "bottom"
+    underscore_line:False
+    borders_color: (0,0,0,1)
+    hint_text_color: (0.5, 0.5, 0.5, 1.0)
+    background_color: 0,0,0,0
+    selection_color:C("#56575655")
+    font_size:"20sp"
+    # on_text: print(self.text)
+    font_name: "fonts"
+    markup: True
+    cursor_color:(0,0,0,1)
+    shrank: True
+    write_tab: False
+    multiline: False
+    padding:[10,10] if self.height > 60 else [10,0.5*(self.height - self.line_height)]
+    canvas.after:
+        Color:
+            rgba: C('#FFFFFF00')
+            # seems that both Ellipses not important
+        Ellipse:
+            angle_start:180
+            angle_end:360
+            pos:(self.pos[0] - self.size[1]/2.0, self.pos[1])
+            size: (self.size[1], self.size[1])
+        Ellipse:
+            angle_start:360
+            angle_end:540
+            pos: (self.size[0] + self.pos[0] - self.size[1]/2.0, self.pos[1])
+            size: (self.size[1], self.size[1])
+        Color:
+            rgba: self.borders_color
+        Line:
+            points: self.pos[0] + (30 if self.shrank else 0) , self.pos[1], self.pos[0] + self.size[0] - (30 if self.shrank else 0), self.pos[1]
+            width: 1.2
+        Color:
+            rgba: self.borders_color if not self.underscore_line else C('#FFFFFF00')
+        Line:
+            points: self.pos[0], self.pos[1] + self.size[1], self.pos[0] + self.size[0], self.pos[1] + self.size[1]
+            width: 1.2
+        Line:
+            ellipse: self.pos[0] - self.size[1]/2.0, self.pos[1], self.size[1], self.size[1], 180, 360
+            width: 1.2
+        Line:
+            ellipse: self.size[0] + self.pos[0] - self.size[1]/2.0, self.pos[1], self.size[1], self.size[1], 360, 540
+            width: 1.2
+
+
+<Main_widget>:
+    transition: slide(duration= 0.5, direction="left")
+    Screen:
+        name: "screen_1"
+        FloatLayout:
+            id: main_screen
+            spacing:"30sp" # sp scale is better for different devices
+            padding: "10sp"
+            canvas.before:
+                Color:
+                    rgba: C("#192565EE")
+                Rectangle:
+                    source: "Images/keyboard.jpg"
+                    pos:self.pos
+                    size: self.size
+
+            Button:
+                id: details_settings_selector
+                pos_hint: {"x":0.02, "top": 0.98}
+                background_color: 0,0,0,0
+                color: C("#CDCED0FF")
+                size_hint: (0.17, 0.11)
+                font_name: "shapes2"
+                font_size: "40sp"
+                text: "\u0034"
+
+            Label:
+                id: label_1
+                pos_hint: {"x":0.17,"top":1}
+                size_hint: (0.9, 0.35)
+                halign:"center"
+                color: C("#CDCED0FF")
+                text: "PC Remote"
+                font_size: "40sp"
+
+            Label:
+                text: "Local host: "
+                font_size: "25sp"
+                color: C("#CDCED0FF")
+                pos_hint: {"x":0.03,"top":0.57}
+                size_hint: (0.28, 0.1)
+
+            MY_TextInput:
+                underscore_line: True
+                pos_hint: {"x":0.35,"top":0.57}
+                size_hint: (0.6, 0.1)
+                cursor_color: C("#D7D7D7FF")
+                color: C("#3B5BFD")
+                id: local_host
+                hint_text: "127.0.0.1"
+                halign:"center"
+                font_size: "25sp"
+                font_name: "fonts"
+                check_it: False
+                on_text_validate: self.check_it = True
+                on_text_validate: root.ask_connection()
+
+
+            Label:
+                text: "Password: "
+                font_size: "25sp"
+                color: C("#CDCED0FF")
+                pos_hint: {"x":0.03,"top":0.4}
+                size_hint: (0.28, 0.1)
+
+
+
+            MY_TextInput:
+                underscore_line: True
+                pos_hint: {"x":0.35,"top":0.4}
+                size_hint: (0.6, 0.1)
+                cursor_color: C("#D7D7D7FF")
+                color: C("#3B5BFDFF")
+                id: passwd
+                hint_text: "*********"
+                halign:"center"
+                font_size: "25sp"
+                font_name: "fonts"
+                password: True
+                on_text_validate: root.ask_connection()
+
+
+            Button:
+                pos_hint: {"right":0.99,"y":0.01}
+                size_hint: (0.3, 0.1)
+                background_color: (0,0,0,0)
+                color: C("#CDCED0FF")
+                font_size: "28sp"
+                text: "Connect"
+                on_press: root.ask_connection()
+                canvas.before:
+                    Color:
+                        rgba: (0,0,0,1)
+                    Line:
+                        rounded_rectangle:(self.pos[0], self.pos[1], self.size[0], self.size[1], 30)
+                        width: 2
+
+
+    Screen:
+        name: "screen_2"
+        BoxLayout:
+            orientation: 'vertical'
+            padding: "10sp"
+            spacing: "10sp"
+            canvas.before:
+                Color:
+                    rgba: C("#2A3777EE")
+                Rectangle:
+                    source: "Images/keyboard.jpg"
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "Choose Option"
+                color: C("#CDCED0FF")
+                font_size: "40sp"
+
+            Button:
+                text: "Mouse"
+                color: C("#CDCED0FF")
+                font_size: "40sp"
+                background_color: (0,0,0,0)
+                font_size:"20sp"
+                on_press: root.current = "mouse_screen"
+                on_press: root.set_orientation() if mouse_rotation.active else ""
+
+            Button:
+                text:"Type Keyboard"
+                color: C("#CDCED0FF")
+                font_size: "40sp"
+                background_color: (0,0,0,0)
+                font_size:"20sp"
+                on_press: root.add_keyboard()
+
+            Button:
+                text: "Video Controller"
+                color: C("#CDCED0FF")
+                font_size: "40sp"
+                background_color: (0,0,0,0)
+                font_size:"20sp"
+                on_press: root.current = "video_control_screen"
+
+    Screen:
+        name: "mouse_screen"
+        FloatLayout:
+            spacing: "10sp"
+            padding: "10sp"
+            canvas.before:
+                Color:
+                    rgba: (0,0,0,1)
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
+            BoxLayout:
+                orientation: "horizontal"
+                pos_hint:{"x":0,"top":0.2}
+                size_hint: (1, 0.2)
+                canvas.before:
+                    Color:
+                        rgba: (0,0,0,1)
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+
+                Button:
+                    background_color: (0,0,0,0)
+                    on_press: root.send_msg("action", "left press", "mouse")
+                    on_release: root.send_msg("action", "left release", "mouse")
+                    size_hint_x: 0.45
+                    canvas.before:
+                        Color:
+                            rgba: (1,1,1,1)
+                        Line:
+                            points: self.pos[0] + 10, self.pos[1] + self.size[1], self.pos[0] + self.size[0] - 10, self.pos[1] + self.size[1]
+                            width: 1.2
+
+                Button:
+                    background_color: (0,0,0,0)
+                    on_press: root.send_msg("action", "middle press", "mouse")
+                    on_release: root.send_msg("action", "middle release", "mouse")
+                    size_hint_x: 0.1
+                    canvas.before:
+                        Color:
+                            rgba: (0, 0, 0, 1)
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                        Color:
+                            rgba: (1, 1, 1, 1)
+                        Line:
+                            points: self.pos[0] + self.size[0]/2, self.pos[1] + 5 , self.pos[0] + self.size[0]/2, self.pos[1] + self.size[1] - 5
+                            width: 1.2
+
+                Button:
+                    background_color: (0,0,0,0)
+                    on_press: root.send_msg("action", "right press", "mouse")
+                    on_release: root.send_msg("action", "right release", "mouse")
+                    size_hint_x: 0.45
+                    canvas.before:
+                        Color:
+                            rgba: (1,1,1,1)
+                        Line:
+                            points: self.pos[0] + 10, self.pos[1] + self.size[1], self.pos[0] + self.size[0] - 10, self.pos[1] + self.size[1]
+                            width: 1.2
+
+
+            BoxLayout:
+                orientation: "vertical"
+                pos_hint:{"right":1,"top":1}
+                size_hint: (0.2, 0.8)
+                canvas.before:
+                    Color:
+                        rgba: (0,0,0,1)
+                    Rectangle:
+                        pos: self.pos
+                        size:self.size
+                    Color:
+                        rgba: (1,1,1,1)
+                    Line:
+                        points: self.pos[0] + self.size[0]/2 + 50, self.pos[1] + 30 , self.pos[0] + self.size[0]/2 + 50, self.pos[1] + self.size[1] - 30
+                    Line:
+                        points: self.pos[0] + self.size[0]/2 + 45 , self.pos[1] + 25, self.pos[0] + self.size[0]/2 + 50, self.pos[1] + 17
+                    Line:
+                        points: self.pos[0] + self.size[0]/2 + 55 , self.pos[1] + 25, self.pos[0] + self.size[0]/2 + 50, self.pos[1] + 17
+                    Line:
+                        points: self.pos[0] + self.size[0]/2 + 45 , self.pos[1] + self.size[1] -  25, self.pos[0] + self.size[0]/2 + 50, self.pos[1] + self.size[1] - 17
+                    Line:
+                        points: self.pos[0] + self.size[0]/2 + 55 , self.pos[1] + self.size[1] - 25, self.pos[0] + self.size[0]/2 + 50, self.pos[1] + self.size[1] - 17
+
+
+    Screen:
+        name: "keyboard_screen"
+        FloatLayout:
+            id: keyboard_id
+            canvas.before:
+                Color:
+                    rgba: C("#263854")
+                Rectangle:
+                    source: "Images/blue-1184674.jpg"
+                    pos: self.pos
+                    size: self.size
+
+
+
+    Screen:
+        name: "video_control_screen"
+        GridLayout:
+            cols: 3
+            padding: "10sp"
+            spacing: "10sp"
+            canvas.before:
+                Color:
+                    rgba:  C("#183765DD")
+                Rectangle:
+                    source: "Images/blue-and-black-1170949.jpg"
+                    pos: self.pos
+                    size: self.size
+
+
+            Control_Button:
+                text: "\u0055"
+                order: "media_volume_down"
+                on_press: root.audio.play_audio()
+                on_press: root.send_msg("action",self.order, "video_player", "press")
+                on_release: root.send_msg("action",self.order, "video_player", "release")
+
+            Control_Button:
+                text: "\u0070"
+                order: "up"
+                on_press:root.audio.play_audio()
+                on_press: root.send_msg("action",self.order, "video_player", "press")
+                on_release: root.send_msg("action",self.order, "video_player", "release")
+
+            Control_Button:
+                text: "\u0056"
+                order: "media_volume_up"
+                on_press:root.audio.play_audio()
+                on_press: root.send_msg("action",self.order, "video_player", "press")
+                on_release: root.send_msg("action",self.order, "video_player", "release")
+
+            Control_Button:
+                text: "\u006E"
+                order: "left"
+                on_press:root.audio.play_audio()
+                on_press: root.send_msg("action",self.order, "video_player", "press")
+                on_release: root.send_msg("action",self.order, "video_player", "release")
+
+            Control_Button:
+                text: "\u0044" if not self.playing else "\u0043"
+                playing: False
+                order: "media_play_pause"
+                on_press: self.playing = not self.playing
+                on_press:root.audio.play_audio()
+                on_press: root.send_msg("action",self.order, "video_player", "press")
+                on_release: root.send_msg("action",self.order, "video_player", "release")
+
+            Control_Button:
+                text: "\u006F"
+                order: "right"
+                on_press:root.audio.play_audio()
+                on_press: root.send_msg("action",self.order, "video_player", "press")
+                on_release: root.send_msg("action",self.order, "video_player", "release")
+
+            Control_Button:
+                text: "\u0048"
+                order: "media_previous"
+                on_press:root.audio.play_audio()
+                on_press: root.send_msg("action",self.order, "video_player", "press")
+                on_release: root.send_msg("action",self.order, "video_player", "release")
+
+            Control_Button:
+                text: "\u006D"
+                order: "down"
+                on_press:root.audio.play_audio()
+                on_press: root.send_msg("action",self.order, "video_player", "press")
+                on_release: root.send_msg("action",self.order, "video_player", "release")
+
+            Control_Button:
+                text: "\u0041"
+                order: "media_next"
+                on_press: root.audio.play_audio()
+                on_press: root.send_msg("action",self.order, "video_player", "press")
+                on_release: root.send_msg("action",self.order, "video_player", "release")
+
+
+
+    Screen:
+        name: "settings_screen"
+        BoxLayout:
+            orientation: 'vertical'
+            padding: "10sp"
+            spacing: "10sp"
+            canvas.before:
+                Color:
+                    rgba: C("#2A3777EE")
+                Rectangle:
+                    source: "Images/keyboard.jpg"
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.2
+                padding: "10sp"
+                spacing: "10sp"
+                Label:
+                    text: "Mouse Screen Rotation: "
+                    font_size: "20sp"
+                    size_hint_x: 0.75
+                Switch:
+                    id: mouse_rotation
+                    active: True
+
+            Label:
+                text: ""
+                size_hint_y: 0.1
+
+
+            Label:
+                text: "Mouse Speed"
+                font_size: "20sp"
+                halign: "center"
+                size_hint_y: 0.1
+
+            FloatLayout:
+                size_hint_y: 0.15
+                Slider:
+                    size_hint: (0.75, 1)
+                    pos_hint: {"center_x":0.5,"y":0}
+                    id: mouse_speed
+                    min: 1
+                    max: 10
+                    value: 5
+                    on_value: root.mouse_speed = self.value
+
+
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: 0.44
+
+
+    Screen:
+        name: "details_screen"
+        BoxLayout:
+            orientation: 'vertical'
+            padding: "30sp"
+            spacing: "10sp"
+            canvas.before:
+                Color:
+                    rgba: C("#000000EE")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text_size: self.size
+                background_color: (0,0,0,0)
+                size_hint_y: 0.1
+                font_size: "20sp"
+                text: "This application is made for Windows and linux operating systems."
+
+            Label:
+                text: ""
+                background_color: (0,0,0,0)
+                size_hint_y: 0.1
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.1
+                Label:
+                    text: "PC application link: "
+                    font_size: "20sp"
+                    size_hint_x: 0.75
+                    background_color: (0,0,0,0)
+                Button:
+                    font_size: "20sp"
+                    background_color: (0,0,0,0)
+                    color: (0,0,1)
+                    text: "app_link"
+                    on_press: root.open_website(host="https://github.com/Omar-X/Pc-Remote-Controller")
+
+            Label:
+                text: ""
+                background_color: (0,0,0,0)
+                size_hint_y: 0.05
+
+            Label:
+                size_hint_y: 0.1
+                font_size: "20sp"
+                text_size: self.size
+                background_color: (0,0,0,0)
+                halign: "center"
+                text: "Links of icons and images used"
+
+            Label:
+                text: ""
+                background_color: (0,0,0,0)
+                size_hint_y: 0.05
+
+
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.1
+                padding: "0sp"
+                spacing: "0sp"
+                Label:
+                    text: "app icon: "
+                    font_size: "20sp"
+                    background_color: (0,0,0,0)
+                    size_hint_x: 0.75
+                Button:
+                    color: (0,0,1)
+                    text: "app_icon"
+                    font_size: "20sp"
+                    background_color: (0,0,0,0)
+                    on_press: root.open_website(host="icons8.com/icon/6rhrZdzVI9KS/smart-tv")
+
+            Label:
+                text: ""
+                size_hint_y: 0.1
+                background_color: (0,0,0,0)
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.1
+                Label:
+                    text: "Background_images: "
+                    font_size: "20sp"
+                    background_color: (0,0,0,0)
+                    size_hint_x: 0.75
+                Button:
+                    color: (0,0,1)
+                    background_color: (0,0,0,0)
+                    font_size: "20sp"
+                    text: "Images"
+                    on_press: root.open_website(host="pixabay.com/users/maxxgirr-3565425/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4532320")
+                    on_press: root.open_website(host="www.freeimages.com/photo/blue-and-black-1170949")
+                    on_press: root.open_website(host="www.freeimages.com/photo/blue-1184674")
+
+            Label:
+                text: ""
+                background_color: (0,0,0,0)
+                size_hint_y: 0.2
+
+            Label:
+                size_hint_y: 0.07
+                background_color: (0,0,0,0)
+                font_size: "20sp"
+                text_size: self.size
+                text: "Created By: Omar M A B Masoud"
+
+            Label:
+                size_hint_y: 0.07
+                background_color: (0,0,0,0)
+                font_size: "20sp"
+                text_size: self.size
+                text: "Email: omarbeshir49@gmail.com"
+
+
+
+
+
+
+
+
+
+
+
+
+
