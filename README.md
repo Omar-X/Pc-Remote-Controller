@@ -15,6 +15,9 @@ give server name, password
 
 4 write localhost (given by the script) and password in the mobile app 
 
+-----------------------------------------
+More details about how to use the app: https://youtu.be/iX9y2bhwCZ8
+
 ---------------------------------------
 ![Script](https://user-images.githubusercontent.com/55954393/159729381-91e2f3fe-30a7-47d5-a972-fa36bfd70ad6.png)
 
@@ -25,6 +28,4 @@ Computer Script
 
 Phone Application
 
------------------------------------------
-More details about how to use: https://youtu.be/iX9y2bhwCZ8
 
