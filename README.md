@@ -17,11 +17,13 @@ give server name, password
 
 ---------------------------------------
 ![Script](https://user-images.githubusercontent.com/55954393/159729381-91e2f3fe-30a7-47d5-a972-fa36bfd70ad6.png)
+
 Computer Script
 
 ![Pic_1](https://user-images.githubusercontent.com/55954393/159729482-9d17804e-6115-4044-97de-2aae5419ebaf.png)
 ![Pic_2](https://user-images.githubusercontent.com/55954393/159729554-5d56e863-4293-4842-9ce6-b727d1c68c72.png)
-Phone app
+
+Phone Application
 
 -----------------------------------------
 More details about how to use: https://youtu.be/iX9y2bhwCZ8
